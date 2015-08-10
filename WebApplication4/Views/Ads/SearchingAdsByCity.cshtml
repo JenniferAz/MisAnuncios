@@ -1,0 +1,143 @@
+﻿@model IEnumerable<MisAnuncios.Models.Anuncio>
+@{
+    ViewBag.Title = "SearchingAdsByCity";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<h2>Busca anuncios por ciudad</h2>
+
+<p>
+   
+    @using (Html.BeginForm())
+    {
+        <br />
+        <div class="row">
+            <div class="col-lg-2">
+                @Html.Label("Ciudad", htmlAttributes: new { @class = "control-label col" })
+                @*@Html.TextBox("SearchCityString")*@
+
+            </div>
+              
+            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-2">
+
+                <input type="text" id="city" class="form-control"/>
+
+
+            </div>
+
+            <input type="button" value="Buscar" onclick="find()" class="btn btn-default btn-primary" />
+
+        </div>
+    }
+
+    <br />
+
+</p>
+
+
+<table id="adstable" class="table" style="table-layout:fixed;">
+    <thead>    
+        <tr>
+            <th style="width:17%;">
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th style="width:13%;">
+                @Html.DisplayNameFor(model => model.Ciudad)
+            </th>
+            <th style="width:10%;">
+                @Html.DisplayNameFor(model => model.Cat)
+            </th>
+            <th style="width:20%;">
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th style="width:40%;">
+                @Html.DisplayNameFor(model => model.Contenido)
+            </th>
+            
+           
+        </tr>
+        </thead>
+    <tbody>
+
+    </tbody>
+ 
+</table>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+<script>
+    var uri = '/api/Anuncios';
+    
+    //$('#city').keypress(function (e) {
+    //    if (e.which == 13) {
+    //        find();
+    //    }
+    //});
+
+    function find() {
+        
+        var id = $('#city').val();
+        deleteRows();
+        $.getJSON(uri + '/' + id)
+        
+            .done(function (data) {
+                
+                $.each(data, function (key, item) {
+                    
+                    //$('<tr>',
+                    //    $('<td>', { text: "Email: " + item.Usuario.Email }).add,
+                    //    $('<td>', { text: "Ciudad: " + item.Ciudad }),
+                    //    $('<td>', { text: "Titulo: " + item.Titulo }),
+                    //    $('<td>', { text: "Contenido: " + item.Contenido }),
+                    //    $('<td>', { text: "Categoria: " + item.Cat.Nombre })
+                    //).appendTo("#tbody")
+
+                    appendRow(item);
+                });
+            })
+            .fail(function (jqXHR, textStatus, err) {
+                alert('Lo sentimos, aún no hay anuncios en ' + id);
+            });
+    }
+
+    // append row to the HTML table
+    function appendRow(item) {
+        var tbl = document.getElementById('adstable'), // table reference
+            row = tbl.insertRow(tbl.rows.length);      // append table row
+            
+        // insert table cells to the new row
+       
+        createCell(row.insertCell(0), item.Usuario.Email, 'row');
+        createCell(row.insertCell(1), item.Ciudad, 'row');
+        createCell(row.insertCell(2), item.Cat.Nombre, 'row');
+        createCell(row.insertCell(3), item.Titulo, 'row');
+        createCell(row.insertCell(4), item.Contenido, 'row');
+       
+       
+    }
+
+    // create DIV element and append to the table cell
+    function createCell(cell, text, style) {
+        var div = document.createElement('div'), // create DIV element
+            txt = document.createTextNode(text); // create text node
+        div.appendChild(txt);                    // append text node to the DIV
+        div.setAttribute('style', "word-wrap:break-word;");
+        cell.appendChild(div);                   // append DIV to the table cell
+    }
+
+    // delete table rows with index greater then 0
+    function deleteRows() {
+        var tbl = document.getElementById('adstable'), // table reference
+            lastRow = tbl.rows.length - 1,             // set the last row index
+            i;
+        // delete rows with index greater then 0
+        for (i = lastRow; i > 0; i--) {
+            tbl.deleteRow(i);
+        }
+    }
+
+</script>

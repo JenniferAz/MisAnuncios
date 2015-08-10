@@ -1,0 +1,70 @@
+﻿
+body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+#titulo{
+max-width: 350px;
+}
+
+#contenido{
+    max-width: 900px;
+}
+
+.linksTexto {
+    color: lightgrey;
+}
+
+    .linksTexto:hover {
+        text-decoration: none;
+        color: darkgrey;
+    }
+
+#footerP {
+    color:lightgray;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom:20px;
+    margin-bottom:0px;
+}
+
+#loginForm {
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+#loginResgisterSection{
+    padding-bottom:100px;
+    padding-top:100px;
+}
+
+footer{
+   /*border-top:1px solid lightgray;*/
+   background-color:rgb(34,34,34);
+}
+
+.form-label{
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+}

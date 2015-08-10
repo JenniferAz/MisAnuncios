@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            @if ((ViewContext.RouteData.GetRequiredString("controller") == "Manage") &&
+                                                        (ViewContext.RouteData.GetRequiredString("action") == "ChangeProfile"))
+            {
+                <li class="active">
+                    @Html.ActionLink("¡Hola " + User.Identity.GetUserName() + "!", "ChangeProfile", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                        
+                </li>
+            }
+            else
+            {
+            <li>
+                @Html.ActionLink("¡Hola " + User.Identity.GetUserName() + "!", "ChangeProfile", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            }
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cierra sesión</a></li>
+        </ul>
+
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        @if ((ViewContext.RouteData.GetRequiredString("controller") == "Account") &&
+                                                (ViewContext.RouteData.GetRequiredString("action") == "Login"))
+        {
+            <li class="active">
+                @Html.ActionLink("Inicia sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+            </li>
+        }
+        else
+        {
+            <li>
+                @Html.ActionLink("Inicia sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+            </li>
+
+        }
+        @if ((ViewContext.RouteData.GetRequiredString("controller") == "Account") &&
+                                                        (ViewContext.RouteData.GetRequiredString("action") == "Register"))
+        {
+            <li class="active">
+                @Html.ActionLink("Regístrate", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+            </li>
+        }
+        else
+        {
+            <li>
+                @Html.ActionLink("Regístrate", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+            </li>
+
+        }
+    </ul>
+}

@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+@using Microsoft.AspNet.Identity
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MisAnuncios</title>
+    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/font-awesome/css")*@
+    <link href="~/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/layout2.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/common.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/style4.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/demo.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/icons.css" type="text/css">
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+</head>
+<body id="page-top">
+    <div id="wrapper">
+
+        <div id="header">
+
+            <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header" id="brand">
+
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @*@Html.ActionLink("Mis Anuncios", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        @Html.Partial("_LoginPartial2")
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>
+                                @Html.ActionLink("Mis Anuncios", "Index", "Home",null, new { style = "font-size:16px;" })
+                            </li>
+                            @*<li><a class="page-scroll" href="#about">Acerca de</a></li>*@
+                            @if ((ViewContext.RouteData.GetRequiredString("controller") == "Ads") &&
+(ViewContext.RouteData.GetRequiredString("action") == "Index"))
+                            {
+                                <li class="active">
+                                    @Html.ActionLink("Anuncios", "Index", "Ads")
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    @Html.ActionLink("Anuncios", "Index", "Ads")
+                                </li>
+
+                            }
+
+                            @if ((ViewContext.RouteData.GetRequiredString("controller") == "Ads") &&
+(ViewContext.RouteData.GetRequiredString("action") == "SearchingAdsByCity"))
+                            {
+                                <li class="active">
+                                    @Html.ActionLink("Buscador", "SearchingAdsByCity", "Ads")
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                   @Html.ActionLink("Buscador", "SearchingAdsByCity", "Ads")
+                                </li>
+
+                            }
+
+                            @if (User.Identity.GetUserName().Equals("admin@admin.com"))
+                            {
+
+                                if ((ViewContext.RouteData.GetRequiredString("controller") == "Categories") &&
+                (ViewContext.RouteData.GetRequiredString("action") == "Index"))
+                                {
+                                    <li class="active">
+                                        @Html.ActionLink("Gestión de categorías", "Index", "Categories", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        @Html.ActionLink("Gestión de categorías", "Index", "Categories", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                    </li>
+
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div><!-- #header -->
+
+        <div id="content">
+
+            <div id="body-content">
+                @RenderBody()
+            </div>
+        </div><!-- #content -->
+
+
+        <div id="footer">
+            @*<hr />*@
+            <footer>
+                <p id="footerP">&copy; @DateTime.Now.Year - Mis Anuncios</p>
+            </footer>
+        </div><!-- #footer -->
+        @*</div>*@
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @*@Scripts.Render("~/bundles/customized")*@
+        @RenderSection("scripts", required: false)
+
+        <script src="~/Scripts/cbpAnimatedHeader.js"></script>
+        <script src="~/Scripts/classie.js"></script>
+        <script src="~/Scripts/jquery.fittext.js"></script>
+        <script src="~/Scripts/wow.min.js"></script>
+        <script src="~/Scripts/jquery.easing.min.js"></script>
+        <script src="~/Scripts/creative.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        @*<script type="text/javascript" src="~/Scripts/jquery.dropdown.js"></script>
+            <script type="text/javascript" src="~/Scripts/modernizr.custom.63321.js"></script>
+            <script type="text/javascript">
+
+                $(function () {
+
+                    $('#cd-dropdown').dropdown();
+
+                });
+
+            </script>*@
+
+
+    </div><!-- #wrapper -->
+</body>
+</html>

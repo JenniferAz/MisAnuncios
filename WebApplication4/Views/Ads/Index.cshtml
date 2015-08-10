@@ -1,0 +1,124 @@
+﻿@model IEnumerable<MisAnuncios.Models.Anuncio>
+
+@{
+    ViewBag.Title = "Anuncios";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<h2>Anuncios</h2>
+
+<p>
+    @if (Request.IsAuthenticated)
+    {
+        <i class="fa fa-plus-circle"></i>
+        @Html.ActionLink("Añade tu anuncio", "Create")
+    }
+    @using (Html.BeginForm())
+    {
+        <br />
+        <div class="row">
+            <div class="col-lg-2">
+                @Html.Label("Ciudad", htmlAttributes: new { @class = "control-label" })
+                @*@Html.TextBox("SearchCityString")*@
+
+            </div>
+            <div class="col-lg-2">
+                @Html.Label("Categoria", htmlAttributes: new { @class = "control-label" })
+                @*@Html.DropDownList("adCategory", "All")*@
+
+            </div>
+
+            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-2">
+                @*@Html.Label("Ciudad", htmlAttributes: new { @class = "control-label" })*@
+                @*@Html.TextBox("SearchCityString", null, new {@class= "form-control" })*@
+                <input type="text" name="SearchCityString" value="@ViewBag.city" class="form-control" />
+            </div>
+            <div class="col-lg-2">
+                @*@Html.Label("Categoria", htmlAttributes: new { @class = "control-label" })*@
+                @Html.DropDownList("adCategory", null,"All", new { @class = "form-control" })
+
+            </div>
+
+            <input type="submit" value="Buscar" class="btn btn-default btn-primary" />
+        </div>
+    }
+
+    <br />
+
+</p>
+
+<table class="table" style="table-layout:fixed;">
+    <thead>
+        <tr>
+            <th style="width:17%;">
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th style="width:13%;">
+                @Html.DisplayNameFor(model => model.Ciudad)
+            </th>
+            <th style="width:10%;">
+                @Html.DisplayNameFor(model => model.Cat)
+            </th>
+            <th style="width:20%;">
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th style="width:40%;">
+                @Html.DisplayNameFor(model => model.Contenido)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.Usuario.Email)
+                </td>
+                <td style="word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.Ciudad)
+                </td>
+                <td style="word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.Cat.Nombre)
+                </td>
+                <td style="word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td style="word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.Contenido)
+                </td>
+               
+                @*@if (Request.IsAuthenticated)
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    }*@
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+
+@Scripts.Render("~/bundles/jquery")
+@if (ViewBag.Message != "")
+{
+    <script>
+
+$(document).ready(function(){
+
+alert('@ViewBag.Message');
+
+});
+
+    </script>
+
+}

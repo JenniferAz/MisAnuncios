@@ -1,0 +1,214 @@
+﻿@using MisAnuncios.Models
+@model LogInRegisterViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<header>
+
+    <div class="header-content">
+
+        <div class="header-content-inner ">
+
+            <h1 class="animated zoomInDown">¡Únete al gran salto!</h1>
+            <hr class="animated zoomInDown">
+            <p class="animated zoomInDown">
+                Mis Anuncios es un portal para que autónomos den a conocer sus servicios. Destaca tus aptitudes y publica anuncios en tu ciudad.
+                Y si lo que necesitas es un profesional, consulta los anuncios, tenemos lo que buscas.
+            </p>
+
+            <a href="#about" class="btn btn-primary btn-xl page-scroll animated bounceInLeft">Lánzate</a>
+
+        </div>
+    </div>
+</header>
+
+<section class="bg-primary" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Conoce más sobre Mis Anuncios</h2>
+                <hr class="light">
+                <p class="text-faded">
+                    Jardinería, fontanería, cerrajería, cuidado de niños, enseñanza de idiomas... Puedes tener cualquier servicio a tu diposición en tu ciudad.
+                    Búscalo en la sección de <a href="#" class="linksTexto">anuncions</a>. <br />Y si además eres autónomo y te gustaría que conocieran tu servicio en cualquier lugar,
+                    <a href="~/Views/Account/Register.cshtml" class="linksTexto">regístrate</a>. Una vez dentro podrás publicar tantos anuncios como desees de cualquier categoría en tu ciudad. ¡Lanza tu negocio!
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+@if (!Request.IsAuthenticated)
+{
+    <section id="loginResgisterSection">
+        <div id="loginregistercontainer" class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <section id="loginForm">
+                        <h2>Inicia sesión</h2>
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @*<h4>Utiliza una cuenta local para iniciar sesión.</h4>*@
+                            <br />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger form-label" })
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label form-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-label" })
+                                    @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger form-label" })*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label form-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control form-label" })
+                                    @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger form-label" })*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe, new { @class = "form-label" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Iniciar" class="btn btn-default btn-primary" />
+                                </div>
+                            </div>
+                            @*<p>
+                                    @Html.ActionLink("Register as a new user", "Register")
+                                </p>*@
+                            @* Enable this once you have account confirmation enabled for password reset functionality
+                                <p>
+                                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                </p>*@
+                        }
+                    </section>
+                </div>
+                <div class="col-md-6">
+                    @*<section id="socialLoginForm">
+                            @Html.Partial("../Account/_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>*@
+                    <h2>Regístrate</h2>
+
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                        @Html.AntiForgeryToken()
+                        @*<h4>Crea una cuenta nueva.</h4>*@
+                        <br />
+
+                        @Html.ValidationSummary("", new { @class = "text-danger form-label" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label form-label" })
+                            <div class="col-md-10">
+
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-label" })
+                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger form-label" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control form-label" })
+                                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger form-label" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control form-label" })
+                                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger form-label" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control form-label" })
+                                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger form-label" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-label" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label form-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control form-label" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label form-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-label" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-default btn-primary" value="Registrar" />
+                            </div>
+                        </div>
+                        
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}
+    @*<section id="services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">At Your Service</h2>
+                        <hr class="primary">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                            <h3>Sturdy Templates</h3>
+                            <p class="text-muted">Our templates are updated regularly so they don't break.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                            <h3>Ready to Ship</h3>
+                            <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                            <h3>Up to Date</h3>
+                            <p class="text-muted">We update dependencies to keep things fresh.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
+                            <h3>Made with Love</h3>
+                            <p class="text-muted">You have to make your websites with love these days!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>*@
+

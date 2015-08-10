@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MisAnuncios.Models.Categoria>
+
+@{
+    ViewBag.Title = "Gestión de Categorías";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Gestión de Categorías</h2>
+
+<p>
+    <i class="fa fa-plus-circle"></i>
+    @Html.ActionLink("Añade una nueva categoría", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.ID })
+                        @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                    </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Scripts.Render("~/bundles/jquery")
+@if (ViewBag.Message != "")
+{
+    <script>
+
+$(document).ready(function(){
+
+alert('@ViewBag.Message');
+
+});
+
+    </script>
+
+}

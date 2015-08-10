@@ -1,0 +1,78 @@
+﻿@model MisAnuncios.Models.Anuncio
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Añade tu anuncio</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Anuncio</h4>*@
+        @*<hr />*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ciudad, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                <p id="display-city" class="col-md-1">@ViewBag.city</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("adCategory")*@
+                @Html.DropDownList("selectedCategoryId", (SelectList)ViewBag.adCategory, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Cat, "", new { @class = "text-danger" })
+                @*<select id="cd-dropdown" class="cd-select">
+                        <option value="-1" selected>Selecciona una categoría</option>
+                        @foreach (var item in ViewBag.adCategory)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>*@
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Titulo, new { id="titulo", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contenido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Contenido, new { id = "contenido", @class = "form-control"})
+                @*@Html.EditorFor(model => model.Contenido, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Contenido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Añadir" class="btn btn-default btn-primary" onclick="feedback" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <button class="btn btn-default">@Html.ActionLink("Volver a la lista", "Index")</button>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+   
+}
