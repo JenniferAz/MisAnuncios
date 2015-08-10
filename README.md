@@ -1,17 +1,17 @@
-/* Jennifer Azaña */
 # MisAnuncios
 
-INTRODUCCIÓN
+##INTRODUCCIÓN
 
 MisAnuncios en una aplicación web programada utilizando generalmente ASP .NET MVC para el backend y HTML5 y JavaScript para el frontend. Dispone de una base de datos local SQL Server Express que contiene tablas para autentificación de usuarios (incluyendo roles), anuncios y categorías.
 
-FUNCIONALIDADES
+##FUNCIONALIDADES
 
 La aplicación permite a cualquier usuario:
--Ver la información general del sitio.
--Ver el listado de anuncios publicados.
--Buscar anuncios en una ciudad y además filtrar por categoría.
--Registrarse e iniciar sesión.
+
+* Ver la información general del sitio.
+* Ver el listado de anuncios publicados.
+* Buscar anuncios en una ciudad y además filtrar por categoría.
+* Registrarse e iniciar sesión.
 
 Un usuario registrado y con su sesión iniciada además tiene la posibilidad de:
 -Cambiar sus datos: nombre y apellidos, ciudad, email y contraseña.
